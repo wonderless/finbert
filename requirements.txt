@@ -1,8 +1,0 @@
-Flask==3.0.0
-flask-cors==4.0.0
-transformers==4.46.0
-torch==2.5.1
-googletrans==4.0.0rc1
-sentencepiece==0.2.0
-protobuf==5.29.0
-gunicorn==23.0.0
