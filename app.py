@@ -7,7 +7,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 import torch
-from googletrans import Translator
+from deep_translator import GoogleTranslator
 import logging
 
 # Configurar logging
@@ -19,7 +19,7 @@ app = Flask(__name__)
 CORS(app)  # Permitir peticiones desde el frontend
 
 # Inicializar el traductor
-translator = Translator()
+translator = GoogleTranslator(source='es', target='en')
 
 # Cargar modelo FinBERT
 logger.info("Cargando modelo FinBERT...")
@@ -40,9 +40,9 @@ def translate_to_english(text):
         str: Texto traducido al inglés
     """
     try:
-        translation = translator.translate(text, src='es', dest='en')
-        logger.info(f"Traducción: {text[:50]}... -> {translation.text[:50]}...")
-        return translation.text
+        translation = translator.translate(text)
+        #logger.info(f"Traducción: {text[:50]}... -> {translation.text[:50]}...")
+        return translation
     except Exception as e:
         logger.error(f"Error en traducción: {str(e)}")
         raise Exception(f"Error al traducir el texto: {str(e)}")
